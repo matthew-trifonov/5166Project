@@ -1,0 +1,14 @@
+#header-img{
+    height: 100%;
+    width: 40%;
+}
+
+#header-img-holder{
+    height: 6vh;
+    overflow: hidden;
+}
+
+#header-link-holder a{
+    font-size: 20px;
+    text-decoration: none;
+}
