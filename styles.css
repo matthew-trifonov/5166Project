@@ -42,3 +42,10 @@ footer {
     box-sizing: border-box; 
     margin-bottom: 10px; 
   }
+
+  input[type=submit] {
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    border-color: black;
+  }
