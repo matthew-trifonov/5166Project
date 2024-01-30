@@ -12,3 +12,33 @@
     font-size: 20px;
     text-decoration: none;
 }
+
+footer {
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background-color: #343a40; 
+}
+
+.container-form { 
+    width: 80%; 
+    max-width: 600px; 
+    margin: 120px auto; 
+  }
+  
+  p {
+    margin: 10px 0; 
+  }
+  
+  label {
+    display: block; 
+  }
+  
+  input, select, textarea {
+    width: 100%; 
+    box-sizing: border-box; 
+    margin-bottom: 10px; 
+  }
