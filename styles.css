@@ -1,6 +1,6 @@
 #header-img{
     height: 100%;
-    width: 40%;
+    width: 35%;
 }
 
 #header-img-holder{
@@ -9,7 +9,7 @@
 }
 
 #header-link-holder a{
-    font-size: 20px;
+    font-size: 17px;
     text-decoration: none;
 }
 
@@ -22,51 +22,13 @@ footer {
     width: 100%;
     background-color: #343a40; 
 }
-
-.container-form { 
-    width: 80%; 
-    max-width: 600px; 
-    margin: 120px auto; 
-  }
   
-  p {
-    margin: 10px 0; 
-  }
-  
-  label {
-    display: block; 
-  }
-  
-  input, select, textarea {
-    width: 100%; 
-    box-sizing: border-box; 
-    margin-bottom: 10px; 
-  }
-
-  input[type=submit] {
-    background-color: green;
-    color: white;
-    border-radius: 5px;
-    border-color: black;
-  }
-  
-  .card {
-    width: 70%;
-    margin: 0 auto;
-    padding: 20px;
-    text-align: center; 
+#sign-up {
+  border-radius: 5px;
+  border: 1px solid rgb(37, 198, 37);
 }
 
-.card h5 {
-    font-size: 24px; 
-}
-
-.card p {
-    font-size: 18px; 
-}
-
-@media (max-width: 768px) {
-    .card {
-        width: 90%;
-    }
+#log-in {
+  border-radius: 5px;
+  border: 1px solid rgb(37, 198, 37);
 }
