@@ -1,0 +1,22 @@
+.container-form { 
+    width: 80%; 
+    max-width: 600px; 
+    margin: auto; 
+}
+    
+label {
+    display: block; 
+}
+    
+input, select, textarea {
+    width: 100%; 
+    box-sizing: border-box; 
+    margin-bottom: 10px; 
+}
+  
+input[type=submit] {
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    border-color: black;
+}
