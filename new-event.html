@@ -27,6 +27,21 @@
       </div>
     </header>
 
+    <nav class="navbar navbar-expand-sm navbar-dark bg-success">
+      <div class="container-fluid">
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a href="index.html" class="text-white m-4 text-decoration-none fs-5">Home</a>
+            </li>
+            <li class="nav-item">
+              <a href="events.html" class="text-white m-4 text-decoration-none fs-5">Events</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    
     <main>
       <div class="container mt-5">
         <h1 class="text-center mb-4">New Event</h1>
@@ -57,11 +72,11 @@
             </p>
             <p>
               <label for="start">Start</label>
-              <input type="date" name="start" id="start" required>
+              <input type="datetime-local" name="start" id="start" required>
             </p>
             <p>
               <label for="end">End</label>
-              <input type="date" name="end" id="end" required>
+              <input type="datetime-local" name="end" id="end" required>
             </p>
             <p>
               <label for="image">Image</label>
