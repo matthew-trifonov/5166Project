@@ -3,7 +3,6 @@ const { DateTime } = require("luxon");
 
 exports.index = (req, res) => {
     let events = model.find();
-    console.log(events);
     res.render('events/index', {events});
 };
 
