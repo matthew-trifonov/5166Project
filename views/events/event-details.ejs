@@ -1,7 +1,7 @@
 <%- include('../partials/header.ejs')%>
 
 <main>
-    <div class="container-fluid">
+    <div class="container-fluid pb-5">
         <div class="row">
             <div class="col-md-6 mx-auto mt-5">
                 <div class="card">
@@ -22,7 +22,9 @@
                         </p>
                         <br>
                         <a href="/events/<%= event.id %>/edit" class="btn btn-outline-success me-2">Edit</a>
-                        <a href="/events/<%= event.id %>/delete" class="btn btn-outline-danger">Delete</a>
+                        <form action="/events/delete/<%= event.id %>" method="POST" style="display:inline;">
+                            <button type="submit" class="btn btn-outline-danger">Delete</button>
+                        </form>
                     </div>
                 </div>
             </div>
