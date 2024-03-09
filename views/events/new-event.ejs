@@ -1,52 +1,48 @@
 <%- include('../partials/header.ejs')%>
 
 <main>
-    <div class="container mt-5">
-      <h1 class="text-center mb-4">New Event</h1>
-      <div class="container-form pb-5">
-        <form action="#">
-          <p>
-            <label for="category">Category</label>
-            <select name="category" id="category" required>
-              <option value="" disabled selected>--Select a Category--</option>
-              <option value="Meditations">Meditations</option>
-              <option value="Seminars">Seminars</option>
-              <option value="OneOnOne">One on One</option>
-              <option value="Workshops">Workshops</option>
-              <option value="Other">Other</option>
-          </select>            
-          </p>
-          <p>
-            <label for="title">Title</label>
-            <input type="text" name="title" placeholder="title" id="title" required>
-          </p>
-          <p>
-            <label for="details">Details</label>
-            <input type="text" name="details" placeholder="description" id="details">
-          </p>
-          <p>
-            <label for="where">Where</label>
-            <input type="text" name="where" placeholder="location" id="where" required>
-          </p>
-          <p>
-            <label for="start">Start</label>
-            <input type="datetime-local" name="start" id="start" required>
-          </p>
-          <p>
-            <label for="end">End</label>
-            <input type="datetime-local" name="end" id="end" required>
-          </p>
-          <p>
-            <label for="image">Image</label>
-            <input type="file" name="image" id="image">
-          </p>
-          <p>
-            <label for="submit"></label>
-            <input type="submit" name="submit" id="submit"> 
-          </p>
-        </form>
-      </div>
+  <div class="container mt-5">
+    <h1 class="text-center mb-4">New Event</h1>
+    <div class="container-form pb-5">
+      <form action="/events" method="post">
+        <p>
+          <label for="category">Category</label>
+          <select name="category" id="category" required>
+            <option value="" disabled>--Select a Category--</option>
+            <option value="Meditations" <%= event && event.category === 'Meditations' ? 'selected' : '' %>>Meditations</option>
+            <option value="Seminars" <%= event && event.category === 'Seminars' ? 'selected' : '' %>>Seminars</option>
+            <option value="OneOnOne" <%= event && event.category === 'OneOnOne' ? 'selected' : '' %>>One on One</option>
+            <option value="Workshops" <%= event && event.category === 'Workshops' ? 'selected' : '' %>>Workshops</option>
+            <option value="Other" <%= event && event.category === 'Other' ? 'selected' : '' %>>Other</option>
+          </select>                     
+        </p>
+        <p>
+          <label for="title">Title</label>
+          <input type="text" name="title" placeholder="title" id="title" value="<%= event ? event.title : '' %>" required>
+        </p>
+        <p>
+          <label for="details">Details</label>
+          <textarea name="details" placeholder="description" id="details" rows="4" required><%= event ? event.details : '' %></textarea>
+        </p>
+        <p>
+          <label for="start">Start</label>
+          <input type="datetime-local" name="start" id="start" value="<%= event ? new Date(event.start).toISOString().slice(0, 16) : '' %>" required>
+        </p>
+        <p>
+          <label for="end">End</label>
+          <input type="datetime-local" name="end" id="end" value="<%= event ? new Date(event.end).toISOString().slice(0, 16) : '' %>" required>
+        </p>        
+        <p>
+          <label for="image">Image</label>
+          <input type="file" name="image" id="image">
+        </p>
+        <p>
+          <label for="submit"></label>
+          <input type="submit" name="submit" id="submit"> 
+        </p>
+      </form>
     </div>
-  </main>
+  </div>
+</main>
 
 <%- include('../partials/footer.ejs')%>

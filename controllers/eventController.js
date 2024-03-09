@@ -11,17 +11,21 @@ exports.new = (req, res) => {
 };
 
 exports.create = (req, res) => {
-    const { title, content, author } = req.body;
+    let body = req.body;
+    console.log(body);
     let event = {
-        title: title,
-        content: content,
-        author: author,
-        createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
+        title: body.title,
+        host: 'Gabriel and Matthew',
+        category: body.category,
+        details: body.details,
+        location: body.where,
+        start: DateTime.fromISO(body.start).toLocaleString(DateTime.DATETIME_MED),
+        end: DateTime.fromISO(body.end).toLocaleString(DateTime.DATETIME_MED),
+        image: body.image
     };
     let newEvent = model.insert(event);
-
     if(newEvent) {
-        res.redirect('/events/' + id);
+        res.redirect('/events/' + newEvent.id);
     }
     else {
         res.status(500).send('Could not create new event');
@@ -41,7 +45,7 @@ exports.edit = (req, res) => {
     let id = req.params.id;
     let event = model.findById(id);
     if(event){
-        res.render('events/new-event', {event});
+        res.render('events/new-event', {event, DateTime: DateTime});
     }
     res.status(404).send('Cannot find event with id ' + id);
 };
