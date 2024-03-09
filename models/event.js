@@ -8,7 +8,9 @@ const events = [
         location: 'Room 101',
         details: 'A seminar about stress in the workplace and how everyone can handle it effectively throughout the company',
         category: 'Seminar',
-        date: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
+        start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT), 
+        end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
+        image: ''
     },
     {
         id: 2,
@@ -17,7 +19,9 @@ const events = [
         location: 'Room 101',
         details: 'A seminar about stress in the workplace and how everyone can handle it effectively throughout the company',
         category: 'Seminar',
-        date: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
+        start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT), 
+        end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
+        image: ''
     },
     {
         id: 3,
@@ -25,8 +29,10 @@ const events = [
         host: 'Gabriel and Matthew',
         location: 'Room 101',
         details: 'A seminar about stress in the workplace and how everyone can handle it effectively throughout the company',
-        category: 'Meditation',
-        date: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
+        category: 'Seminar',
+        start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT), 
+        end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
+        image: ''
     },
 ];
 
@@ -34,7 +40,7 @@ exports.find = () => events;
 
 exports.findById = id => events.find(event => event.id == id);
 
-exports.insert = function(id, updateObj){
+exports.insert = function(updateObj, id){
     if (id) {
         let event = this.findById(id);
         if(event){
@@ -45,8 +51,7 @@ exports.insert = function(id, updateObj){
     } else {
         const newEvent = {
             id: events.length + 1,
-            ...updateObj,
-            createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
+            ...updateObj
         };
         events.push(newEvent);
         return newEvent;
