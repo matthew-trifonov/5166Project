@@ -13,7 +13,7 @@ router.get('/:id', controller.show);
 
 router.get('/:id/edit', controller.edit);
 
-router.put('/:id', controller.update);
+router.post('/:id', controller.update);
 
 router.post('/delete/:id', controller.delete);
 
