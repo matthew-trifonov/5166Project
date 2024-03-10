@@ -3,7 +3,16 @@ const { DateTime } = require("luxon");
 
 exports.index = (req, res) => {
     let events = model.find();
-    res.render('events/index', {events});
+
+    let eventsByCategory = {};
+    events.forEach(event => {
+        if (!eventsByCategory[event.category]) {
+            eventsByCategory[event.category] = [];
+        }
+        eventsByCategory[event.category].push(event);
+    });
+
+    res.render('events/index', { eventsByCategory });
 };
 
 exports.new = (req, res) => {

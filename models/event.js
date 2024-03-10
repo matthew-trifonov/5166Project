@@ -16,9 +16,9 @@ const events = [
         id: 2,
         title: 'Managing Workplace Stress',
         host: 'Gabriel and Matthew',
-        location: 'Room 101',
-        details: 'A seminar about stress in the workplace and how everyone can handle it effectively throughout the company',
-        category: 'Seminar',
+        location: 'Room 200',
+        details: 'A Meditation for managing stress',
+        category: 'Meditations',
         start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT), 
         end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
         image: ''
@@ -35,6 +35,16 @@ const events = [
         image: ''
     },
 ];
+
+const eventsByCategory = {};
+
+events.forEach(event => {
+    if (!eventsByCategory[event.category]) {
+        eventsByCategory[event.category] = [];
+    }
+    eventsByCategory[event.category].push(event);
+});
+
 
 exports.find = () => events;
 
