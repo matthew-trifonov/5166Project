@@ -16,12 +16,11 @@ exports.index = (req, res) => {
 };
 
 exports.new = (req, res) => {
-    res.render('events/new-event');
+    res.render('events/new-event', {event: null});
 };
 
 exports.create = (req, res) => {
     let body = req.body;
-    console.log(body);
     let event = {
         title: body.title,
         host: 'Gabriel and Matthew',
@@ -61,14 +60,18 @@ exports.edit = (req, res) => {
 
 exports.update = (req, res) => {
     const id = req.params.id;
-    const { title, content, author } = req.body;
+    let body = req.body;
     let event = {
-        title: title,
-        content: content,
-        author: author,
-        createdAt: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT)
+        title: body.title,
+        host: 'Gabriel and Matthew',
+        category: body.category,
+        details: body.details,
+        location: body.where,
+        start: DateTime.fromISO(body.start).toLocaleString(DateTime.DATETIME_MED),
+        end: DateTime.fromISO(body.end).toLocaleString(DateTime.DATETIME_MED),
+        image: body.image
     };
-    let updatedEvent = model.insert(id, event);
+    let updatedEvent = model.insert(event, id);
 
     if(updatedEvent) {
         res.redirect('/events/' + id);

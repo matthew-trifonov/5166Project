@@ -36,16 +36,6 @@ const events = [
     },
 ];
 
-const eventsByCategory = {};
-
-events.forEach(event => {
-    if (!eventsByCategory[event.category]) {
-        eventsByCategory[event.category] = [];
-    }
-    eventsByCategory[event.category].push(event);
-});
-
-
 exports.find = () => events;
 
 exports.findById = id => events.find(event => event.id == id);

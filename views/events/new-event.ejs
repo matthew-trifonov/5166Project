@@ -4,13 +4,13 @@
   <div class="container mt-5">
     <h1 class="text-center mb-4">New Event</h1>
     <div class="container-form pb-5">
-      <form action="/events" method="post">
+      <form action="/events/<%= event ? event.id : '' %>" method="post">
         <p>
           <label for="category">Category</label>
           <select name="category" id="category" required>
             <option value="" disabled>--Select a Category--</option>
             <option value="Meditations" <%= event && event.category === 'Meditations' ? 'selected' : '' %>>Meditations</option>
-            <option value="Seminars" <%= event && event.category === 'Seminars' ? 'selected' : '' %>>Seminars</option>
+            <option value="Seminar" <%= event && event.category === 'Seminar' ? 'selected' : '' %>>Seminar</option>
             <option value="OneOnOne" <%= event && event.category === 'OneOnOne' ? 'selected' : '' %>>One on One</option>
             <option value="Workshops" <%= event && event.category === 'Workshops' ? 'selected' : '' %>>Workshops</option>
             <option value="Other" <%= event && event.category === 'Other' ? 'selected' : '' %>>Other</option>
