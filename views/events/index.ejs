@@ -2,47 +2,24 @@
 
 <main class="pb-5">
     <div class="container mt-5">
-      <h1 class="text-center mb-5">Upcoming Events</h1>
-      <div class="card mb-5">
-        <div class="card-header bg-primary text-white">
-          <span style="font-size: 24px;">Seminars</span>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex justify-content-between p-3">
-            <strong><a href="/events/1">Managing Workplace Stress</a></strong>
-            <span>Time: 10:00 AM, Location: Room 101</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between p-3">
-            <strong><a href="/events/2">Keys to Better Sleep</a></strong>
-            <span>Time: 2:00 PM, Location: Auditorium</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between p-3">
-            <strong><a href="/events/3">Understanding Anxiety</a></strong>
-            <span>Time: 4:00 PM, Location: Conference Hall</span>
-          </li>
-        </ul>
-      </div>
-  
-      <div class="card mb-5">
-        <div class="card-header bg-success text-white">
-          <span style="font-size: 24px;">Meditations</span>
-        </div>
-        <ul class="list-group list-group-flush">
-          <li class="list-group-item d-flex justify-content-between p-3">
-            <strong><a href="/events/1">Guided Meditation for Relaxation</a></strong>
-            <span>Time: 9:00 AM, Location: Room 201</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between p-3">
-            <strong><a href="/events/2">Mindful Walking Meditation</a></strong>
-            <span>Time: 1:00 PM, Location: Hall B</span>
-          </li>
-          <li class="list-group-item d-flex justify-content-between p-3">
-            <strong><a href="/events/3">Breathing Basics</a></strong>
-            <span>Time: 5:00 PM, Location: Conference Hall</span>
-          </li>
-        </ul>
-      </div>
+        <h1 class="text-center mb-5">Upcoming Events</h1>
+
+        <% Object.keys(eventsByCategory).forEach(category => { %>
+            <div class="card mb-5">
+                <div class="card-header bg-<%= category === 'Meditations' ? 'success' : 'primary' %> text-white">
+                    <span style="font-size: 24px;"><%= category %></span>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <% eventsByCategory[category].forEach(event => { %>
+                        <li class="list-group-item d-flex justify-content-between p-3">
+                            <strong><a href="/events/<%= event.id %>"><%= event.title %></a></strong>
+                            <span>Time: <%= event.start %>, Location: <%= event.location %></span>
+                        </li>
+                    <% }) %>
+                </ul>
+            </div>
+        <% }) %>
     </div>
-  </main>
+</main>
 
 <%- include('../partials/footer.ejs')%>
