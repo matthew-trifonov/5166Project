@@ -4,7 +4,7 @@
   <div class="container mt-5">
     <h1 class="text-center mb-4">New Event</h1>
     <div class="container-form pb-5">
-      <form action="/events/<%= event ? event.id : '' %>" method="post">
+      <form action="/events/<%= event.id %>?_method=PUT" method="post" enctype="multipart/form-data">
         <p>
           <label for="category">Category</label>
           <select name="category" id="category" required>
@@ -18,20 +18,28 @@
         </p>
         <p>
           <label for="title">Title</label>
-          <input type="text" name="title" placeholder="title" id="title" value="<%= event ? event.title : '' %>" required>
+          <input type="text" name="title" placeholder="title" id="title" value="<%= event.title %>" required>
+        </p>
+        <p>
+          <label for="location">Location</label>
+          <input type="text" name="location" placeholder="location" id="location" value="<%= event.location %>" required>
+        </p>
+        <p>
+          <label for="host">Host</label>
+          <input type="text" name="host" placeholder="host" id="host" value="<%= event.host %>" required>
         </p>
         <p>
           <label for="details">Details</label>
-          <textarea name="details" placeholder="description" id="details" rows="4" required><%= event ? event.details : '' %></textarea>
+          <textarea name="details" placeholder="description" id="details" rows="4" required><%= event.details %></textarea>
         </p>
         <p>
           <label for="start">Start</label>
-          <input type="datetime-local" name="start" id="start" value="<%= event ? new Date(event.start).toISOString().slice(0, 16) : '' %>" required>
+          <input type="datetime-local" name="start" id="start" value="<%= new Date(event.start).toISOString().slice(0, 16) %>" required>
         </p>
         <p>
           <label for="end">End</label>
-          <input type="datetime-local" name="end" id="end" value="<%= event ? new Date(event.end).toISOString().slice(0, 16) : '' %>" required>
-        </p>        
+          <input type="datetime-local" name="end" id="end" value="<%= new Date(event.end).toISOString().slice(0, 16) %>" required>
+        </p>           
         <p>
           <label for="image">Image</label>
           <input type="file" name="image" id="image">

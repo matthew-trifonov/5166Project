@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-body">
                         <h5 class="card-title"><strong><%= event.title %></strong></h5>
-                        <img class="mb-5 mt-5" src="/images/seminar.png" alt="Seminar" style="width: 200px; height: 150px;">
+                        <img class="mb-5 mt-5" src="<%= event.image %>" alt="Seminar" style="width: 200px; height: 150px;">
                         <br>
                         <p class="card-text">
                             <strong>Host:</strong> <%= event.host %><br>
@@ -22,7 +22,7 @@
                         </p>
                         <br>
                         <a href="/events/<%= event.id %>/edit" class="btn btn-outline-success me-2">Edit</a>
-                        <form action="/events/delete/<%= event.id %>" method="POST" style="display:inline;">
+                        <form action="/events/delete/<%= event.id %>?_method=DELETE" method="POST" style="display:inline;">
                             <button type="submit" class="btn btn-outline-danger">Delete</button>
                         </form>
                     </div>

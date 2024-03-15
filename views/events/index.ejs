@@ -6,7 +6,10 @@
 
         <% Object.keys(eventsByCategory).forEach(category => { %>
             <div class="card mb-5">
-                <div class="card-header bg-<%= category === 'Meditations' ? 'success' : 'primary' %> text-white">
+                <div class="card-header bg-<%= category === 'Meditations' ? 'success' : 
+                                category === 'Seminar' ? 'primary' :
+                                category === 'One-on-One' ? 'info' :
+                                category === 'Workshops' ? 'warning' : 'danger' %> text-white">
                     <span style="font-size: 24px;"><%= category %></span>
                 </div>
                 <ul class="list-group list-group-flush">

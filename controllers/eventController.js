@@ -16,78 +16,74 @@ exports.index = (req, res) => {
 };
 
 exports.new = (req, res) => {
-    res.render('events/new-event', {event: null});
+    res.render('events/new', {event: null});
 };
 
 exports.create = (req, res) => {
-    let body = req.body;
-    let event = {
-        title: body.title,
-        host: 'Gabriel and Matthew',
-        category: body.category,
-        details: body.details,
-        location: body.where,
-        start: DateTime.fromISO(body.start).toLocaleString(DateTime.DATETIME_MED),
-        end: DateTime.fromISO(body.end).toLocaleString(DateTime.DATETIME_MED),
-        image: body.image
-    };
-    let newEvent = model.insert(event);
-    if(newEvent) {
-        res.redirect('/events/' + newEvent.id);
+    let event = req.body;
+    
+    if(req.file){
+        const filename = req.file.filename;
+        event.image = filename ? `/images/${filename}` : '';
     }
-    else {
-        res.status(500).send('Could not create new event');
-    }
+
+    model.save(event);
+    res.redirect('/events');
 };
 
-exports.show = (req, res) => {
+exports.show = (req, res, next) => {
     let id = req.params.id;
     let event = model.findById(id);
     if(event){
-        res.render('events/event-details', {event});
+        res.render('events/show', {event});
+    } else {
+        let error = new Error('Cannot find story with id ' + id);
+        error.status = 404;
+        next(error);
     }
-    res.status(404).send('Cannot find event with id ' + id);
 };
 
-exports.edit = (req, res) => {
+exports.edit = (req, res, next) => {
     let id = req.params.id;
     let event = model.findById(id);
     if(event){
-        res.render('events/new-event', {event, DateTime: DateTime});
+        res.render('events/edit', {event, DateTime: DateTime});
+    } else {
+        let error = new Error('Cannot find story with id ' + id);
+        error.status = 404;
+        next(error);
     }
-    res.status(404).send('Cannot find event with id ' + id);
 };
 
-exports.update = (req, res) => {
-    const id = req.params.id;
-    let body = req.body;
-    let event = {
-        title: body.title,
-        host: 'Gabriel and Matthew',
-        category: body.category,
-        details: body.details,
-        location: body.where,
-        start: DateTime.fromISO(body.start).toLocaleString(DateTime.DATETIME_MED),
-        end: DateTime.fromISO(body.end).toLocaleString(DateTime.DATETIME_MED),
-        image: body.image
-    };
-    let updatedEvent = model.insert(event, id);
+exports.update = (req, res, next) => {
+    let event = req.body;
+    let id = req.params.id;
 
-    if(updatedEvent) {
-        res.redirect('/events/' + id);
+    if(req.file){
+        const filename = req.file.filename;
+        event.image = `/images/${filename}`;
     }
     else {
-        res.status(500).send('Could not update event with id ' + req.params.id);
+        delete event.image;
+    }
+
+    if (model.updateById(id, event)){
+        res.redirect('/events/'+ id);
+    } else{
+        let error = new Error('Cannot find story with id ' + id);
+        error.status = 404;
+        next(error);
     }
 };
 
-exports.delete = (req, res) => {
-    const id = req.params.id;
-    let deletedEvent = model.delete(id);
-    if(deletedEvent){
+exports.delete = (req, res, next) => {
+    let id = req.params.id;
+    if(model.deleteById(id)){
         res.redirect('/events');
     }
-    else {
-        res.status(500).send('Could not delete event with id ' + req.params.id);
+    else{
+        let error = new Error('Cannot find story with id ' + id);
+        error.status = 404;
+        next(error);
     }
 };
