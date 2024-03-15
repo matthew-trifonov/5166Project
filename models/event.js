@@ -23,7 +23,7 @@ const events = [
         category: 'Seminar',
         start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT), 
         end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
-        image: '/images/seminar.png'
+        image: '/images/managing-stress.jpg'
     },
     {
         id: '159cbb74-3e5e-40f8-b089-49a2bb7fe480',
@@ -34,7 +34,7 @@ const events = [
         category: 'Workshops',
         start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
         end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
-        image: '/images/seminar.png'
+        image: '/images/anxiety.jpg'
     },
     {
         id: '4d4eac6b-7d68-45ae-9ab4-b87ac06702aa',
@@ -45,7 +45,7 @@ const events = [
         category: 'Workshops',
         start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
         end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
-        image: '/images/seminar.png'
+        image: '/images/relief.jpg'
     },
     {
         id: '3cd75a40-2781-4c1c-b41c-12e1cafa2875',
@@ -56,7 +56,7 @@ const events = [
         category: 'Workshops',
         start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
         end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
-        image: '/images/seminar.png'
+        image: '/images/art.jpg'
     },
     {
         id: '13c40942-ce3a-4c7e-8a4e-8af3c615f606',
@@ -67,7 +67,7 @@ const events = [
         category: 'Seminar',
         start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
         end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
-        image: '/images/seminar.png'
+        image: '/images/sleep.jpg'
     },
 ];
 
