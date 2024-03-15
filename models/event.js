@@ -16,10 +16,10 @@ const events = [
     },
     {
         id: '32452047-e1d6-4fe4-9045-b6ae4da58abf',
-        title: 'Managing Workplace Stress',
+        title: 'Signs of Stress',
         host: 'Gabriel and Matthew',
         location: 'Room 200',
-        details: 'A Meditation for managing stress',
+        details: 'A Seminar about stress',
         category: 'Seminar',
         start: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT), 
         end: DateTime.now().toLocaleString(DateTime.DATETIME_SHORT),
