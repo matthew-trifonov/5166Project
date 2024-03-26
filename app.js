@@ -9,7 +9,7 @@ const app = express();
 
 const port = 8080;
 const host = 'localhost';
-let url = 'mongodb://127.0.0.1:27017/demos';
+let url = 'mongodb://127.0.0.1:27017/MindfulMeet';
 app.set('view engine', 'ejs');
 
 mongoose.connect(url)
