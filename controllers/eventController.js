@@ -24,11 +24,12 @@ exports.new = (req, res) => {
 
 exports.create = (req, res, next) => {
     let event = new model(req.body);
+
     if(req.file){
         const filename = req.file.filename;
         event.image = filename ? `/images/${filename}` : '';
     }
-    
+
     event.save()
     .then(() => res.redirect('/events'))
     .catch(err=>{
@@ -81,6 +82,11 @@ exports.update = (req, res, next) => {
     let event = req.body;
     let id = req.params.id;
 
+    if(req.file){
+        const filename = req.file.filename;
+        event.image = filename ? `/images/${filename}` : '';
+    }
+    
     model.findByIdAndUpdate(id, event, {useFindAndModify: false, runValidators: true})
     .then(event=> {
         if (event){
