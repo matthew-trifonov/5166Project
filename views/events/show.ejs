@@ -21,8 +21,8 @@
                             <strong>Details:</strong> <%= event.details %>
                         </p>
                         <br>
-                        <a href="/events/<%= event.id %>/edit" class="btn btn-outline-success me-2">Edit</a>
-                        <form action="/events/delete/<%= event.id %>?_method=DELETE" method="POST" style="display:inline;">
+                        <a href="/events/<%= event._id %>/edit" class="btn btn-outline-success me-2">Edit</a>
+                        <form action="/events/delete/<%= event._id %>?_method=DELETE" method="POST" style="display:inline;">
                             <button type="submit" class="btn btn-outline-danger">Delete</button>
                         </form>
                     </div>
