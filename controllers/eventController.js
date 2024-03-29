@@ -1,6 +1,5 @@
 const fs = require('fs');
 const model = require('../models/event');
-const { DateTime } = require("luxon");
 
 exports.index = (req, res, next)=>{
     console.log("test");
@@ -68,7 +67,7 @@ exports.edit = (req, res, next) => {
     model.findById(id)
     .then(event => {
         if(event){
-            res.render('events/edit', {event, DateTime: DateTime});
+            res.render('events/edit', {event});
         } else {
             let error = new Error('Cannot find story with id ' + id);
             error.status = 404;
