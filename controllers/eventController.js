@@ -42,6 +42,12 @@ exports.create = (req, res, next) => {
 exports.show = (req, res, next) => {
     let id = req.params.id;
 
+    if(!id.match(/^[0-9a-fA-F]{24}$/)) {
+        let err = new Error ('Invalid event id');
+        err.status = 400;
+        return next(err);
+    }
+
     model.findById(id)
     .then(event => {
         if(event){
@@ -81,6 +87,12 @@ exports.update = (req, res, next) => {
     let event = req.body;
     let id = req.params.id;
 
+    if(!id.match(/^[0-9a-fA-F]{24}$/)) {
+        let err = new Error ('Invalid event id');
+        err.status = 400;
+        return next(err);
+    }
+    
     if(req.file){
         const filename = req.file.filename;
         event.image = filename ? `/images/${filename}` : '';
@@ -96,7 +108,12 @@ exports.update = (req, res, next) => {
             next(error);
         }
     })
-    .catch(err=>next(err));
+    .catch(err=> {
+        if(err.name === 'ValidationError' ) {
+            err.status = 400;
+        }
+        next(err);
+    });
 };
 
 exports.delete = (req, res, next) => {

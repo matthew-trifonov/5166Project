@@ -3,25 +3,29 @@
 <main class="pb-5">
     <div class="container mt-5">
         <h1 class="text-center mb-5">Upcoming Events</h1>
-
-        <% Object.keys(eventsByCategory).forEach(category => { %>
-            <div class="card mb-5">
-                <div class="card-header bg-<%= category === 'Meditations' ? 'success' : 
-                                category === 'Seminar' ? 'primary' :
-                                category === 'One-on-One' ? 'info' :
-                                category === 'Workshops' ? 'warning' : 'danger' %> text-white">
-                    <span style="font-size: 24px;"><%= category %></span>
+        <% if(Object.keys(eventsByCategory).length > 0){ %>
+            <% Object.keys(eventsByCategory).forEach(category => { %>
+                <div class="card mb-5">
+                    <div class="card-header bg-<%= category === 'Meditations' ? 'success' : 
+                                    category === 'Seminar' ? 'primary' :
+                                    category === 'One-on-One' ? 'info' :
+                                    category === 'Workshops' ? 'warning' : 'danger' %> text-white">
+                        <span style="font-size: 24px;"><%= category %></span>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <% eventsByCategory[category].forEach(event => { %>
+                            <li class="list-group-item d-flex justify-content-between p-3">
+                                <strong><a href="/events/<%= event.id %>"><%= event.title %></a></strong>
+                                <span>Time: <%= event.start %>, Location: <%= event.location %></span>
+                            </li>
+                        <% }) %>
+                    </ul>
                 </div>
-                <ul class="list-group list-group-flush">
-                    <% eventsByCategory[category].forEach(event => { %>
-                        <li class="list-group-item d-flex justify-content-between p-3">
-                            <strong><a href="/events/<%= event.id %>"><%= event.title %></a></strong>
-                            <span>Time: <%= event.start %>, Location: <%= event.location %></span>
-                        </li>
-                    <% }) %>
-                </ul>
-            </div>
-        <% }) %>
+            <% }) %>
+        <% } else { %>
+            <h3 class="text-center mb-5">There are no events created at this time.</h3>
+        <% } %>
+       
     </div>
 </main>
 
