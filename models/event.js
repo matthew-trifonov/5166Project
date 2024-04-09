@@ -3,7 +3,7 @@ const Schema = mongoose.Schema;
 
 const eventSchema = new Schema({
     title: {type: String, required: [true, 'title is required']},
-    host: {type: String, required: [true, 'host is required']},
+    host: {type: Schema.Types.ObjectId, ref:'User', required: [true, 'host is required']},
     location: {type: String, required: [true, 'location is required']},
     details: {type: String, required: [true, 'content is required'], 
                 minLength: [10, 'the content should have at least 10 characters']},

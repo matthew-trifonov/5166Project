@@ -2,7 +2,6 @@ const fs = require('fs');
 const model = require('../models/event');
 
 exports.index = (req, res, next)=>{
-    console.log("test");
     model.find()
     .then(events => {    
         let eventsByCategory = {};
