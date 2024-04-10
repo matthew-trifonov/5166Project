@@ -19,7 +19,6 @@ exports.create = (req, res, next)=>{
             req.flash('error', 'Email has been used');  
             return res.redirect('/users/new');
         }
-        
         next(err);
     }); 
 };
