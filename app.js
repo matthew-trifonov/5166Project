@@ -16,7 +16,7 @@ const host = 'localhost';
 let url = 'mongodb+srv://Mindful:Mindful123@cluster0.9fv09g9.mongodb.net/nbda-project3?retryWrites=true&w=majority';
 app.set('view engine', 'ejs');
 
-mongoose.connect('mongodb://127.0.0.1:27017/demos')
+mongoose.connect(url)
 .then(()=>{
     //start the server
     app.listen(port, host, () => {
@@ -30,7 +30,7 @@ app.use(
             secret: "ajfeirf90aeu9eroejfoefj",
             resave: false,
             saveUninitialized: false,
-            store: new MongoStore({mongoUrl: 'mongodb://127.0.0.1:27017/demos'}),
+            store: new MongoStore({mongoUrl: url}),
             cookie: {maxAge: 60*60*1000}
         })
 );
