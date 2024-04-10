@@ -1,6 +1,8 @@
 const express = require("express");
 const multer = require('multer');
 const controller = require("../controllers/eventController");
+const {isLoggedIn, isHost} = require ('../middlewares/auth');
+const {validateId} = require('../middlewares/validator');
 
 const router = express.Router();
 
@@ -19,15 +21,15 @@ const upload = multer({ storage: storage });
 
 router.get('/', controller.index);
 
-router.get('/new', controller.new);
+router.get('/new', isLoggedIn, controller.new);
 
-router.post('/',  upload.single('image'), controller.create);
+router.post('/',  isLoggedIn, upload.single('image'), controller.create);
 
-router.get('/:id', controller.show);
+router.get('/:id', validateId, controller.show);
 
-router.get('/:id/edit', controller.edit);
+router.get('/:id/edit', isLoggedIn, isHost, validateId, controller.edit);
 
-router.put('/:id', upload.single('image'), controller.update);
+router.put('/:id', isLoggedIn, isHost, validateId, upload.single('image'), controller.update);
 
 router.delete('/delete/:id', controller.delete);
 

@@ -19,8 +19,13 @@
           </div>
           <div id="header-link-holder" class="col-md-7 text-end">
             <a href="/events/new" class="text-white m-3 me-5">New Event</a>
-            <button class="bg-dark text-white p-2 me-3" id="log-in">Log in</button>
-            <button class="bg-dark text-white p-2 me-3" id="sign-up">Sign Up</button>                    
+            <%if (!user) {%>
+              <a href='/users/login'><button class="bg-dark text-white p-2 me-3" id="log-in">Log in</button></a>
+              <a href='/users/new'><button class="bg-dark text-white p-2 me-3" id="sign-up">Sign Up</button></a>
+            <%} else {%> 
+            <a href='/users/profile'><button class="bg-dark text-white p-2 me-3" id="Profile">Profile</a>
+            <a href='/users/logout'><button class="bg-dark text-white p-2 me-3" id="Profile">Logout</a>
+                <%}%>                   
           </div>
         </div>
       </div>
