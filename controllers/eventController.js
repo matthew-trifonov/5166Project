@@ -22,7 +22,7 @@ exports.new = (req, res) => {
 
 exports.create = (req, res, next) => {
     let event = new model(req.body);
-
+    event.host = req.session.user;
     if(req.file){
         const filename = req.file.filename;
         event.image = filename ? `/images/${filename}` : '';
