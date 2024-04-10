@@ -41,12 +41,6 @@ exports.create = (req, res, next) => {
 exports.show = (req, res, next) => {
     let id = req.params.id;
 
-    if(!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error ('Invalid event id');
-        err.status = 400;
-        return next(err);
-    }
-
     model.findById(id)
     .then(event => {
         if(event){
@@ -63,21 +57,9 @@ exports.show = (req, res, next) => {
 exports.edit = (req, res, next) => {
     let id = req.params.id;
 
-    if(!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error ('Invalid event id');
-        err.status = 400;
-        return next(err);
-    }
-
     model.findById(id)
     .then(event => {
-        if(event){
-            res.render('events/edit', {event});
-        } else {
-            let error = new Error('Cannot find story with id ' + id);
-            error.status = 404;
-            next(error);
-        }
+        res.render('events/edit', {event});
     })
     .catch(err=>next(err));
 };
@@ -85,12 +67,6 @@ exports.edit = (req, res, next) => {
 exports.update = (req, res, next) => {
     let event = req.body;
     let id = req.params.id;
-
-    if(!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error ('Invalid event id');
-        err.status = 400;
-        return next(err);
-    }
     
     if(req.file){
         const filename = req.file.filename;
@@ -118,26 +94,14 @@ exports.update = (req, res, next) => {
 exports.delete = (req, res, next) => {
     let id = req.params.id;
 
-    if(!id.match(/^[0-9a-fA-F]{24}$/)) {
-        let err = new Error ('Invalid event id');
-        err.status = 400;
-        return next(err);
-    }
-
     model.findByIdAndDelete(id, {useFindAndModify: false})
     .then(event =>{
-        if(event) {
-            fs.unlink('public/' + event.image, (err) => {
-                if (err) {
-                    return; 
-                }
-            });
-            res.redirect('/events');
-        } else {
-            let err = new Error('Cannot find a event with id ' + id);
-            err.status = 404;
-            return next(err);
-        }
+        fs.unlink('public/' + event.image, (err) => {
+            if (err) {
+                return; 
+            }
+        });
+        res.redirect('/events');
     })
     .catch(err=>next(err));
 };

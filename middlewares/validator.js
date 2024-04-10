@@ -5,8 +5,8 @@ exports.validateId = (req, res, next) => {
     if(id.match(/^[0-9a-fA-F]{24}$/)) {
            return next();
         } else {
-       let err = new Error('Invalid Object ID type');
-       err.status = 400;
-       return next(err);
-    }
+            let err = new Error('Invalid Object ID type');
+            err.status = 400;
+            return next(err);
+        }
 }
