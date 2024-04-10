@@ -41,7 +41,7 @@ exports.create = (req, res, next) => {
 exports.show = (req, res, next) => {
     let id = req.params.id;
 
-    model.findById(id)
+    model.findById(id).populate("host", "firstName lastName")
     .then(event => {
         if(event){
             return res.render('events/show', {event});

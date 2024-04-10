@@ -1,12 +1,16 @@
 <%- include('../partials/header.ejs')%>
-    <h2>Welcome, <%=user.firstName%></h2>
-    <%if(events.length) {%>
-        <p>You have created the following events</p>
-        <%stories.forEach(story => {%>
-            <a href='/events/<%=event.id%>'><p><%=event.title%></p></a>
-        <%});
-    } else {%>
-        <p>You have not created any events</p>
-    <%}%>
+<main>
+    <div class="container-fluid py-5 m-5">
+        <h2>Welcome, <%=user.firstName%></h2>
+        <%if(events.length) {%>
+            <p>You have created the following events</p>
+            <%stories.forEach(story => {%>
+                <a href='/events/<%=event.id%>'><p><%=event.title%></p></a>
+            <%});
+        } else {%>
+            <p>You have not created any events</p>
+        <%}%>
     </div>
-    <%- include('../partials/footer.ejs')%>
+</main>
+    
+<%- include('../partials/footer.ejs')%>

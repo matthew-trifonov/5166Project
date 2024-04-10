@@ -10,7 +10,7 @@
                         <img class="mb-5 mt-5" src="<%= event.image %>" alt="Seminar" style="width: 200px; height: 150px;">
                         <br>
                         <p class="card-text">
-                            <strong>Host:</strong> <%= event.host %><br>
+                            <strong>Host:</strong> <%= event.host.firstName + " " + event.host.lastName %><br>
                             <br>
                             <strong>Start Time:</strong> <%= event.start %><br>
                             <br>
@@ -21,10 +21,12 @@
                             <strong>Details:</strong> <%= event.details %>
                         </p>
                         <br>
-                        <a href="/events/<%= event._id %>/edit" class="btn btn-outline-success me-2">Edit</a>
-                        <form action="/events/delete/<%= event._id %>?_method=DELETE" method="POST" style="display:inline;">
-                            <button type="submit" class="btn btn-outline-danger">Delete</button>
-                        </form>
+                        <%if(user == event.host._id) {%>
+                            <a href="/events/<%= event._id %>/edit" class="btn btn-outline-success me-2">Edit</a>
+                            <form action="/events/delete/<%= event._id %>?_method=DELETE" method="POST" style="display:inline;">
+                                <button type="submit" class="btn btn-outline-danger">Delete</button>
+                            </form>
+                        <%}%>
                     </div>
                 </div>
             </div>

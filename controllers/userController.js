@@ -57,7 +57,7 @@ exports.login = (req, res, next)=>{
 
 exports.profile = (req, res, next)=>{
     let id = req.session.user;
-    Promise.all([model.findById(id), Event.find({ author: id })])
+    Promise.all([model.findById(id), Event.find({ host: id })])
     .then(results=> {
         const[user, events] = results;
         res.render('./user/profile', {user, events})
