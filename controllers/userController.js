@@ -25,7 +25,7 @@ exports.create = (req, res, next)=>{
 };
 
 exports.getUserLogin = (req, res, next) => {
-    res.render('./user/login');
+    res.render('user/login');
 }
 
 exports.login = (req, res, next)=>{

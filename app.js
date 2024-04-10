@@ -51,7 +51,7 @@ app.use(methodOverride('_method'));
 
 app.use('/', mainRoutes);
 app.use('/events', eventRoutes);
-app.use('/users', eventRoutes);
+app.use('/users', userRoutes);
 
 app.use((req, res, next) => {
     let err = new Error('The server cannot locate ' + req.url);
