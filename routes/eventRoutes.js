@@ -31,6 +31,6 @@ router.get('/:id/edit', isLoggedIn, isHost, validateId, controller.edit);
 
 router.put('/:id', isLoggedIn, isHost, validateId, upload.single('image'), controller.update);
 
-router.delete('/delete/:id', controller.delete);
+router.delete('/delete/:id', isLoggedIn, isHost, validateId, controller.delete);
 
 module.exports = router;
