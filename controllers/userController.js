@@ -16,7 +16,7 @@ exports.create = (req, res, next)=>{
         }
 
         if(err.code === 11000) {
-            req.flash('error', 'Email has been used');  
+            req.flash('error', 'This email is already in use');  
             return res.redirect('/users/new');
         }
         next(err);
@@ -34,18 +34,18 @@ exports.login = (req, res, next)=>{
     model.findOne({ email: email })
     .then(user => {
         if (!user) {
-            console.log('wrong email address');
+            console.log('Wrong email address');
             req.flash('error', 'wrong email address');  
             res.redirect('/users/login');
             } else {
             user.comparePassword(password)
             .then(result=>{
                 if(result) {
-                    req.session.user = user;
+                    req.session.user = user._id;
                     req.flash('success', 'You have successfully logged in');
                     res.redirect('/users/profile');
             } else {
-                req.flash('error', 'wrong password');      
+                req.flash('error', 'Wrong Password');      
                 res.redirect('/users/login');
             }
             });     
@@ -56,7 +56,7 @@ exports.login = (req, res, next)=>{
 
 exports.profile = (req, res, next)=>{
     let id = req.session.user;
-    Promise.all([model.findById(id), Event.find({ host: id })])
+    Promise.all([model.findById(id), Event.find({host: id })])
     .then(results=> {
         const[user, events] = results;
         res.render('./user/profile', {user, events})
