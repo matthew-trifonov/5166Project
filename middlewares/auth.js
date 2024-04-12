@@ -1,6 +1,4 @@
 const event = require('../models/event');
-const Story = require('../models/event');
-
 
 //check if user is guest
 
