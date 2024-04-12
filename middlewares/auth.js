@@ -1,3 +1,4 @@
+const event = require('../models/event');
 const Story = require('../models/event');
 
 
@@ -13,7 +14,6 @@ exports.isGuest = (req, res, next) => {
 }
 
 //check if user is authenticated
-
 exports.isLoggedIn = (req, res, next) =>{
     if(req.session.user){
         return next();
@@ -22,14 +22,14 @@ exports.isLoggedIn = (req, res, next) =>{
             return res.redirect('/users/login');
         }
 }
-//check if author
+//check if host
 exports.isHost = (req, res, next) =>{
     let id = req.params.id;
 
     Story.findById(id)
-    .then(story=>{
-        if(story) {
-            if(story.host == req.session.user) {
+    .then(event=>{
+        if(event) {
+            if(event.host == req.session.user) {
                 return next();
             } else {
                 let err = new Error('Unauthorized to access the resource');

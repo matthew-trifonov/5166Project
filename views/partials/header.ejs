@@ -23,7 +23,7 @@
               <a href='/users/new'><button class="bg-dark text-white p-2 me-3" id="sign-up">Sign Up</button></a>
             <%} else {%> 
             <a href="/events/new" class="text-white m-3 me-5">New Event</a>
-            <a href='/users/profile'><button class="bg-dark text-white p-2 me-3" id="profile"> <%=user.firstName%>'s Profile</a>
+            <a href='/users/profile'><button class="bg-dark text-white p-2 me-3" id="profile"> <%= user.firstName %>'s Profile</a>
             <a href='/users/logout'><button class="bg-dark text-white p-2 me-3" id="logout">Logout</a>
                 <%}%>                   
           </div>
