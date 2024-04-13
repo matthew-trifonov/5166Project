@@ -21,7 +21,7 @@
                             <strong>Details:</strong> <%= event.details %>
                         </p>
                         <br>
-                        <% if(user._id == event.host._id) { %>
+                        <% if(user && event.host && user._id == event.host._id) { %>
                             <a href="/events/<%= event._id %>/edit" method = "GET" class="btn btn-outline-success me-2">Edit</a>
                             <form action="/events/delete/<%= event._id %>?_method=DELETE" method="POST" style="display:inline;">
                                 <button type="submit" class="btn btn-outline-danger">Delete</button>
