@@ -1,4 +1,4 @@
-const Story = require('../models/event');
+const Event = require('../models/event');
 
 exports.validateId = (req, res, next) => { 
     let id = req.params.id;

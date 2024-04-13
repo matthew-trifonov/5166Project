@@ -46,7 +46,7 @@ exports.show = (req, res, next) => {
         if(event){
             return res.render('events/show', {event});
         } else{
-            let error = new Error('Cannot find story with id ' + id);
+            let error = new Error('Cannot find event with id ' + id);
             error.status = 404;
             next(error);
         }
@@ -78,7 +78,7 @@ exports.update = (req, res, next) => {
         if (event){
             res.redirect('/events/'+ event._id);
         } else{
-            let error = new Error('Cannot find story with id ' + id);
+            let error = new Error('Cannot find event with id ' + id);
             error.status = 404;
             next(error);
         }

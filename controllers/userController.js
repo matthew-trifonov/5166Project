@@ -34,16 +34,15 @@ exports.login = (req, res, next)=>{
     model.findOne({ email: email })
     .then(user => {
         if (!user) {
-            console.log('Wrong email address');
-            req.flash('error', 'wrong email address');  
+            req.flash('error', 'Wrong email address');  
             res.redirect('/users/login');
             } else {
             user.comparePassword(password)
             .then(result=>{
                 if(result) {
-                    req.session.user = user._id;
+                    req.session.user = user;
                     req.flash('success', 'You have successfully logged in');
-                    res.redirect('/users/profile');
+                    res.redirect('/');
             } else {
                 req.flash('error', 'Wrong Password');      
                 res.redirect('/users/login');
