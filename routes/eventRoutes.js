@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require('multer');
 const controller = require("../controllers/eventController");
 const {isLoggedIn, isHost} = require ('../middlewares/auth');
-const {validateId} = require('../middlewares/validator');
+const{validateId, validateEvent, validateResult} = require('../middlewares/validator');
 
 const router = express.Router();
 
@@ -19,18 +19,25 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
+//GET /stories: send all stories to the user
 router.get('/', controller.index);
 
+//GET /stories/new: send html form for creating a new story
 router.get('/new', isLoggedIn, controller.new);
 
-router.post('/',  isLoggedIn, upload.single('image'), controller.create);
+//POST /stories: create a new story
+router.post('/',  isLoggedIn, validateEvent, validateResult, upload.single('image'), controller.create);
 
+//GET /stories/:id: send details of story identified by id
 router.get('/:id', validateId, controller.show);
 
-router.get('/:id/edit', isLoggedIn, isHost, validateId, controller.edit);
+//GET /stories/:id/edit: send html form for editing an exising story
+router.get('/:id/edit', validateId, isLoggedIn, isHost, controller.edit);
 
-router.put('/:id', isLoggedIn, isHost, validateId, upload.single('image'), controller.update);
+//PUT /stories/:id: update the story identified by id
+router.put('/:id', validateId,  isLoggedIn, isHost, upload.single('image'), validateEvent, validateResult, controller.update);
 
-router.delete('/delete/:id', isLoggedIn, isHost, validateId, controller.delete);
+//DELETE /stories/:id, delete the story identified by id
+router.delete('/delete/:id', validateId, isLoggedIn, isHost, controller.delete);
 
 module.exports = router;
