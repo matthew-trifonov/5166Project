@@ -1,11 +1,19 @@
 const model = require('../models/user');
-const Event = require('../models/event')
+const Event = require('../models/event');
+const { validationResult } = require('express-validator');
 
 exports.new = (req, res)=>{
     return res.render('./user/new');
 };
 
 exports.create = (req, res, next)=>{
+    let errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        error.array().forEach(error=>{
+            req.flash('error', error.msg);
+        });
+        return res.redirect('back');
+    }
     let user = new model(req.body);
     user.save()
     .then(user=> res.redirect('/users/login'))
@@ -28,7 +36,13 @@ exports.getUserLogin = (req, res, next) => {
 }
 
 exports.login = (req, res, next)=>{
-
+    let errors = validationResult(req);
+    if(!errors.isEmpty()) {
+        error.array().forEach(error=>{
+            req.flash('error', error.msg);
+        });
+        return res.redirect('back');
+    }
     let email = req.body.email;
     let password = req.body.password;
     model.findOne({ email: email })

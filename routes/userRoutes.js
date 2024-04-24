@@ -7,13 +7,13 @@ const {validateSignUp, validateLogIn, validateResult, validateStory} = require('
 const router = express.Router();
 
 //GET /users/new: send html form for creating a new user account
-router.get('/new', controller.new);
+router.get('/new', isGuest, controller.new);
 
 //POST /users: create a new user account
-router.post('/', validateSignUp, validateResult, controller.create);
+router.post('/', isGuest, validateSignUp, validateResult, controller.create);
 
 //GET /users/login: send html for logging in
-router.get('/login', controller.getUserLogin);
+router.get('/login', isGuest, controller.getUserLogin);
 
 //POST /users/login: authenticate user's login
 router.post('/login', logInLimiter, validateLogIn, validateResult, controller.login);
