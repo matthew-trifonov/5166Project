@@ -10,6 +10,17 @@
         } else {%>
             <p>You have not created any events</p>
         <%}%>
+        <%if(rsvps.length) {%>
+            <p>You have the following rsvps</p>
+            <%rsvps.forEach(rsvp => {%>
+                <div>
+                    <a href='/events/<%= rsvp.event.id %>'><p style="display: inline;"><%= rsvp.event.title %></p></a>: <%= rsvp.status %>
+                </div>
+
+            <%});
+        } else {%>
+            <p>You have not created any events</p>
+        <%}%>
     </div>
 </main>
     

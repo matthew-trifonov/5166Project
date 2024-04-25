@@ -1,5 +1,6 @@
 const model = require('../models/user');
 const Event = require('../models/event');
+const RSVP = require('../models/rsvp')
 const { validationResult } = require('express-validator');
 
 exports.new = (req, res)=>{
@@ -69,10 +70,15 @@ exports.login = (req, res, next)=>{
 
 exports.profile = (req, res, next)=>{
     let id = req.session.user;
-    Promise.all([model.findById(id), Event.find({host: id })])
+    Promise.all([
+        model.findById(id),
+        Event.find({ host: id }),
+        RSVP.find({ user: id }).populate('event user')
+    ])
     .then(results=> {
-        const[user, events] = results;
-        res.render('./user/profile', {user, events})
+        const[user, events, rsvps] = results;
+        console.log(rsvps)
+        res.render('./user/profile', {user, events, rsvps})
     })
     .catch(err=>next(err));
 };

@@ -1,5 +1,6 @@
 const fs = require('fs');
 const model = require('../models/event');
+const RSVP = require('../models/rsvp');
 
 exports.index = (req, res, next)=>{
     model.find()
@@ -102,6 +103,40 @@ exports.delete = (req, res, next) => {
             }
         });
         res.redirect('/events');
+    })
+    .catch(err=>next(err));
+};
+
+exports.rsvp = (req, res, next) => {
+    let id = req.params.id;
+
+    model.findById(id)
+    .then(event => {
+        if(event){ 
+            RSVP.findOne({ event: id, user: req.session.user._id })
+                .then(rsvp => {
+                    if(rsvp){
+                        rsvp.status = req.body.status;
+                    }
+                    else{
+                        rsvp = new RSVP(req.body);
+                        rsvp.user = req.session.user;
+                        rsvp.event = event
+                    }
+                    rsvp.save()
+                    .then(() => res.redirect('/events'))
+                    .catch(err=>{
+                        if(err.name === 'ValidationError' ) {
+                            err.status = 400;
+                        }
+                        next(err);
+                    });
+                })
+        } else{
+            let error = new Error('Cannot find event with id ' + id);
+            error.status = 404;
+            next(error);
+        }
     })
     .catch(err=>next(err));
 };

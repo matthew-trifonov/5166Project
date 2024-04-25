@@ -34,6 +34,9 @@ router.get('/:id', validateId, controller.show);
 //GET /stories/:id/edit: send html form for editing an exising story
 router.get('/:id/edit', validateId, isLoggedIn, isHost, controller.edit);
 
+//GET /stories/:id/edit/rsvp: send html form for editing an exising story
+router.post('/:id/edit/rsvp', controller.rsvp);
+
 //PUT /stories/:id: update the story identified by id
 router.put('/:id', validateId,  isLoggedIn, isHost, upload.single('image'), validateEvent, validateResult, controller.update);
 
