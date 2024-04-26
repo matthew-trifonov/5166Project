@@ -10,7 +10,7 @@ exports.new = (req, res)=>{
 exports.create = (req, res, next)=>{
     let errors = validationResult(req);
     if(!errors.isEmpty()) {
-        error.array().forEach(error=>{
+        errors.array().forEach(error=>{
             req.flash('error', error.msg);
         });
         return res.redirect('back');
