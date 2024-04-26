@@ -9,6 +9,7 @@ const rsvpSchema = new Schema({
         enum: ['YES', 'NO', 'MAYBE'],
         required: [true, 'status is required']
     },
+    yesCounter: { type: Number, default: 0 },
 }, { timestamps: true });
 
 module.exports = mongoose.model('Rsvp', rsvpSchema);

@@ -42,17 +42,34 @@ exports.create = (req, res, next) => {
 exports.show = (req, res, next) => {
     let id = req.params.id;
 
-    model.findById(id).populate('host', 'firstName lastName')
+    model.findById(id)
+    .populate('host', 'firstName lastName')
     .then(event => {
         if(event){
-            return res.render('events/show', {event});
+            RSVP.findOne({ event: id })
+                .then(rsvp => {
+                    if (rsvp) {
+                        console.log("YesCounter found in RSVP:", rsvp.yesCounter);
+                        res.render('events/show', { event, yesCounter: rsvp.yesCounter });
+                    } else {
+                        console.log("No RSVP found for event, yesCounter set to 0.");
+                        res.render('events/show', { event, yesCounter: 0 });
+                    }
+                })
+                .catch(err => {
+                    console.error("Error while finding RSVP:", err);
+                    next(err);
+                });
         } else{
             let error = new Error('Cannot find event with id ' + id);
             error.status = 404;
             next(error);
         }
     })
-    .catch(err=>next(err));
+    .catch(err => {
+        console.error("Error while finding event:", err);
+        next(err);
+    });
 };
 
 exports.edit = (req, res, next) => {
@@ -111,32 +128,39 @@ exports.rsvp = (req, res, next) => {
     let id = req.params.id;
 
     model.findById(id)
-    .then(event => {
-        if(event){ 
-            RSVP.findOne({ event: id, user: req.session.user._id })
-                .then(rsvp => {
-                    if(rsvp){
-                        rsvp.status = req.body.status;
-                    }
-                    else{
-                        rsvp = new RSVP(req.body);
-                        rsvp.user = req.session.user;
-                        rsvp.event = event
-                    }
-                    rsvp.save()
-                    .then(() => res.redirect('/events'))
-                    .catch(err=>{
-                        if(err.name === 'ValidationError' ) {
-                            err.status = 400;
+        .then(event => {
+            if (event) {
+                RSVP.findOne({ event: id, user: req.session.user._id })
+                    .then(rsvp => {
+                        if (rsvp) {
+                            rsvp.status = req.body.status;
+                        } else {
+                            rsvp = new RSVP(req.body);
+                            rsvp.user = req.session.user;
+                            rsvp.event = event;
                         }
+                        if (req.body.status === 'YES') {
+                            rsvp.yesCounter = (rsvp.yesCounter || 0) + 1;
+                        }
+                        return rsvp.save();
+                    })
+                    .then(savedRsvp => {
+                        console.log('RSVP saved successfully:', savedRsvp);
+                        res.redirect('/events');
+                    })
+                    .catch(err => {
+                        console.error('Error saving RSVP:', err);
                         next(err);
                     });
-                })
-        } else{
-            let error = new Error('Cannot find event with id ' + id);
-            error.status = 404;
-            next(error);
-        }
-    })
-    .catch(err=>next(err));
+            } else {
+                let error = new Error('Cannot find event with id ' + id);
+                error.status = 404;
+                next(error);
+            }
+        })
+        .catch(err => {
+            console.error('Error finding event:', err);
+            next(err);
+        });
 };
+
