@@ -45,19 +45,17 @@ exports.show = (req, res, next) => {
     model.findById(id)
     .populate('host', 'firstName lastName')
     .then(event => {
-        if(event){
-            RSVP.findOne({ event: id })
-                .then(rsvp => {
-                    if (rsvp) {
-                        console.log("YesCounter found in RSVP:", rsvp.yesCounter);
-                        res.render('events/show', { event, yesCounter: rsvp.yesCounter });
-                    } else {
-                        console.log("No RSVP found for event, yesCounter set to 0.");
-                        res.render('events/show', { event, yesCounter: 0 });
+        if(event){  
+            RSVP.find({ event: id })
+                .then(rsvps => {
+                    userRsvpStatus = "Not Selected"
+                    userRsvp = rsvps.filter(obj => obj.user.valueOf() === req.session.user._id);
+                    if(userRsvp.length > 0){
+                        userRsvpStatus = userRsvp[0].status;
                     }
+                    res.render('events/show', { event, rsvps, userRsvpStatus });
                 })
                 .catch(err => {
-                    console.error("Error while finding RSVP:", err);
                     next(err);
                 });
         } else{
@@ -139,17 +137,10 @@ exports.rsvp = (req, res, next) => {
                             rsvp.user = req.session.user;
                             rsvp.event = event;
                         }
-                        if (req.body.status === 'YES') {
-                            rsvp.yesCounter = (rsvp.yesCounter || 0) + 1;
-                        }
-                        return rsvp.save();
+                        rsvp.save();
                     })
-                    .then(savedRsvp => {
-                        console.log('RSVP saved successfully:', savedRsvp);
-                        res.redirect('/events');
-                    })
+                    .then(res.redirect('/events/' + event._id))
                     .catch(err => {
-                        console.error('Error saving RSVP:', err);
                         next(err);
                     });
             } else {

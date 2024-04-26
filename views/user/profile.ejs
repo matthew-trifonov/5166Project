@@ -1,25 +1,30 @@
 <%- include('../partials/header.ejs')%>
 <main>
     <div class="container-fluid py-5 m-5">
-        <h2>Welcome, <%=user.firstName + " " + user.lastName %></h2>
-        <%if(events.length) {%>
-            <p>You have created the following events</p>
-            <%events.forEach(event => {%>
-                <a href='/events/<%=event.id%>'><p><%=event.title%></p></a>
-            <%});
-        } else {%>
-            <p>You have not created any events</p>
-        <%}%>
-        <%if(rsvps.length) {%>
-            <p>You have the following rsvps</p>
-            <%rsvps.forEach(rsvp => {%>
-                <div>
-                    <a href='/events/<%= rsvp.event.id %>'><p style="display: inline;"><%= rsvp.event.title %></p></a>: <%= rsvp.status %>
-                </div>
+        <h1 class="mb-5">Welcome, <%=user.firstName + " " + user.lastName %></h1>
 
-            <%});
-        } else {%>
-            <p>You have not created any events</p>
+        <hr style="width: 95%">
+        <%if(events.length) {%> 
+            <strong><h3>You have created the following events</h3></strong>
+            <ul>
+                <% events.forEach(event => { %>
+                  <li><a class='text-decoration-none fs-4' href='/events/<%= event.id %>'><%= event.title %></a></li>
+                <% }); %>
+              </ul>              
+        <% } else {%>
+            <strong><h3>You have not created any events</h3></strong>
+        <%}%>
+        <hr style="width: 95%">
+        <%if(rsvps.length) {%>
+            <strong><h3 class="mt-4">You have the following RSVPS</h3></strong>
+            <ul>
+                <%rsvps.forEach(rsvp => {%>
+                    <li><a class='text-decoration-none fs-4' href='/events/<%= rsvp.event.id %>'><p style="display: inline;"><%= rsvp.event.title %></p></a>: <strong class='m-5 fs-4'><%= rsvp.status %></strong></li>
+                <%});%>
+            </ul>
+
+        <%} else {%>
+            <strong><h3 class="mt-5">You have not created any events</h3></strong>
         <%}%>
     </div>
 </main>
