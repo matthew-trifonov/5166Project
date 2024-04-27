@@ -36,3 +36,13 @@ exports.validateEvent = [
     body('title', 'Title cannot be empty').notEmpty().trim().escape(),
     body('details', 'Content must be at least 10 characters').isLength({min: 10}).trim().escape()
 ];
+
+exports.validateRSVP = [
+    body('status').custom(value => {
+        const lowercaseValue = value.toLowerCase();
+        if (!['yes', 'no', 'maybe'].includes(lowercaseValue)) {
+           return false;
+        }
+        return true;
+    }).withMessage('Input must be either "yes", "no", or "maybe"').trim().escape()
+];

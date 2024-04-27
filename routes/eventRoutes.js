@@ -2,7 +2,7 @@ const express = require("express");
 const multer = require('multer');
 const controller = require("../controllers/eventController");
 const {isLoggedIn, isHost} = require ('../middlewares/auth');
-const{validateId, validateEvent, validateResult} = require('../middlewares/validator');
+const{validateId, validateEvent, validateResult, validateRSVP} = require('../middlewares/validator');
 
 const router = express.Router();
 
@@ -19,28 +19,28 @@ const storage = multer.diskStorage({
 });
 const upload = multer({ storage: storage });
 
-//GET /stories: send all stories to the user
+//GET /stories: send all events to the user
 router.get('/', controller.index);
 
-//GET /stories/new: send html form for creating a new story
+//GET /stories/new: send html form for creating a new event
 router.get('/new', isLoggedIn, controller.new);
 
-//POST /stories: create a new story
-router.post('/',  isLoggedIn, validateEvent, validateResult, upload.single('image'), controller.create);
+//POST /stories: create a new event
+router.post('/',  isLoggedIn, upload.single('image'), validateEvent, validateResult, controller.create);
 
-//GET /stories/:id: send details of story identified by id
+//GET /stories/:id: send details of event identified by id
 router.get('/:id', validateId, controller.show);
 
-//GET /stories/:id/edit: send html form for editing an exising story
+//GET /stories/:id/edit: send html form for editing an exising event
 router.get('/:id/edit', validateId, isLoggedIn, isHost, controller.edit);
 
-//GET /stories/:id/edit/rsvp: send html form for editing an exising story
-router.post('/:id/edit/rsvp', controller.rsvp);
+//GET /stories/:id/edit/rsvp: send html form for editing an exising event
+router.post('/:id/edit/rsvp', isLoggedIn, validateId, validateRSVP, controller.rsvp);
 
-//PUT /stories/:id: update the story identified by id
+//PUT /stories/:id: update the event identified by id
 router.put('/:id', validateId,  isLoggedIn, isHost, upload.single('image'), validateEvent, validateResult, controller.update);
 
-//DELETE /stories/:id, delete the story identified by id
+//DELETE /stories/:id, delete the event identified by id
 router.delete('/delete/:id', validateId, isLoggedIn, isHost, controller.delete);
 
 module.exports = router;
