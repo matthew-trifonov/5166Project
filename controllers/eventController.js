@@ -109,19 +109,21 @@ exports.update = (req, res, next) => {
 
 exports.delete = (req, res, next) => {
     let id = req.params.id;
-
-    model.findByIdAndDelete(id, {useFindAndModify: false})
-    .then(event =>{
-        fs.unlink('public/' + event.image, (err) => {
-            if (err) {
-                return; 
-            }
-        });
-        res.redirect('/events');
+    RSVP.deleteMany({event: id})
+    .then(()=>{
+        model.findByIdAndDelete(id, {useFindAndModify: false})
+         .then(event =>{
+            fs.unlink('public/' + event.image, (err) => {
+                if (err) {
+                    return; 
+                }
+            });
+            res.redirect('/events');
+        })
+        .catch(err=>next(err));
     })
     .catch(err=>next(err));
 };
-
 exports.rsvp = (req, res, next) => {
     let id = req.params.id;
 
