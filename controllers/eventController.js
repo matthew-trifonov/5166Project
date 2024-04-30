@@ -49,9 +49,11 @@ exports.show = (req, res, next) => {
             RSVP.find({ event: id })
                 .then(rsvps => {
                     userRsvpStatus = "Not Selected"
-                    userRsvp = rsvps.filter(obj => obj.user.valueOf() === req.session.user._id);
-                    if(userRsvp.length > 0){
-                        userRsvpStatus = userRsvp[0].status;
+                    if(req.session.user) {
+                        userRsvp = rsvps.filter(obj => obj.user.valueOf() === req.session.user._id);
+                          if(userRsvp.length > 0){
+                             userRsvpStatus = userRsvp[0].status;
+                        }
                     }
                     res.render('events/show', { event, rsvps, userRsvpStatus });
                 })
